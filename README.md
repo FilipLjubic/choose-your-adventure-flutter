@@ -4,7 +4,10 @@
 
 In this challenge, I will be building a choose your own adventure game like Bandersnatch.
 
-(It will be different from the app shown below, but same concept and story)
+Different from the app shown below: 
+- different UI 
+- animated buttons 
+- alert at the end
 
 ![Finished App](https://github.com/londonappbrewery/Images/blob/master/Destini.gif)
 
