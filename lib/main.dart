@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_button/animated_button.dart';
-
-TextStyle style = TextStyle(
-  color: Colors.white,
-  fontSize: 24.0,
-);
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:bordered_text/bordered_text.dart';
 
 void main() {
   runApp(
@@ -24,9 +21,12 @@ class StoryPage extends StatefulWidget {
 class _StoryPageState extends State<StoryPage> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,
+        width: 1080.0, height: 2300.0, allowFontScaling: true);
+
     return Container(
-      padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
+      padding: EdgeInsets.all(20.w),
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/background.jpg'),
           fit: BoxFit.cover,
@@ -41,9 +41,18 @@ class _StoryPageState extends State<StoryPage> {
               Expanded(
                 flex: 10,
                 child: Center(
-                  child: Text(
-                    "Here comes the text",
-                    style: style,
+                  child:
+                      BorderedTextWidget(text: "Here comes the text", size: 70),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: AnimatedButton(
+                    width: 900.w,
+                    color: Colors.blueGrey,
+                    child: BorderedTextWidget(text: "Choice 1", size: 50),
+                    onPressed: () => print("choice1"),
                   ),
                 ),
               ),
@@ -51,24 +60,36 @@ class _StoryPageState extends State<StoryPage> {
                 flex: 2,
                 child: Center(
                   child: AnimatedButton(
-                    child: Text("Test", style: style),
-                    onPressed: () => print("hi"),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: AnimatedButton(
-                    color: Colors.green,
-                    child: Text("Test", style: style),
-                    onPressed: () => print("hi"),
+                    width: 900.w,
+                    color: Colors.grey,
+                    child: BorderedTextWidget(text: "Choice 2", size: 50),
+                    onPressed: () => print("choice2"),
                   ),
                 ),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BorderedTextWidget extends StatelessWidget {
+  final String text;
+  final int size;
+
+  const BorderedTextWidget({Key key, this.text, this.size}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BorderedText(
+      strokeWidth: 10.w,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: ScreenUtil().setSp(size),
         ),
       ),
     );
