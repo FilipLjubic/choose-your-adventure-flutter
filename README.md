@@ -6,8 +6,9 @@ In this challenge, I will be building a choose your own adventure game like Band
 
 Different from the app shown below: 
 - different UI 
-- animated buttons 
-- alert at the end
+- animated buttons
+- adjusts to all screen sizes
+- different app icon
 
 ![Finished App](https://github.com/londonappbrewery/Images/blob/master/Destini.gif)
 
