@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_button/animated_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bordered_text/bordered_text.dart';
+import 'package:create_your_adventure/utils/story_brain.dart';
 
 void main() {
   runApp(
@@ -19,6 +20,8 @@ class StoryPage extends StatefulWidget {
 }
 
 class _StoryPageState extends State<StoryPage> {
+  StoryBrain _storyBrain = StoryBrain();
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context,
@@ -36,13 +39,11 @@ class _StoryPageState extends State<StoryPage> {
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 flex: 10,
                 child: Center(
-                  child:
-                      BorderedTextWidget(text: "Here comes the text", size: 70),
+                  child: BorderedTextWidget(text: _storyBrain.text, size: 70),
                 ),
               ),
               Expanded(
@@ -51,8 +52,9 @@ class _StoryPageState extends State<StoryPage> {
                   child: AnimatedButton(
                     width: 900.w,
                     color: Colors.blueGrey,
-                    child: BorderedTextWidget(text: "Choice 1", size: 50),
-                    onPressed: () => print("choice1"),
+                    child:
+                        BorderedTextWidget(text: _storyBrain.choice1, size: 45),
+                    onPressed: () => setState(() => _storyBrain.chooseNext(1)),
                   ),
                 ),
               ),
@@ -62,8 +64,9 @@ class _StoryPageState extends State<StoryPage> {
                   child: AnimatedButton(
                     width: 900.w,
                     color: Colors.grey,
-                    child: BorderedTextWidget(text: "Choice 2", size: 50),
-                    onPressed: () => print("choice2"),
+                    child:
+                        BorderedTextWidget(text: _storyBrain.choice2, size: 45),
+                    onPressed: () => setState(() => _storyBrain.chooseNext(2)),
                   ),
                 ),
               ),
@@ -83,13 +86,16 @@ class BorderedTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BorderedText(
-      strokeWidth: 10.w,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: ScreenUtil().setSp(size),
+    return Container(
+      margin: EdgeInsets.only(left: 30.w),
+      child: BorderedText(
+        strokeWidth: 10.w,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: ScreenUtil().setSp(size),
+          ),
         ),
       ),
     );

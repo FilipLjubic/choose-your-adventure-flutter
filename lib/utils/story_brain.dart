@@ -1,6 +1,7 @@
 import 'package:create_your_adventure/models/story.dart';
 
 class StoryBrain {
+  int _story = 0;
   List<Story> _storyData = [
     Story(
         storyTitle:
@@ -32,4 +33,32 @@ class StoryBrain {
         choice1: 'Restart',
         choice2: '')
   ];
+
+  String get text {
+    return _storyData[_story].storyTitle;
+  }
+
+  String get choice1 {
+    return _storyData[_story].choice1;
+  }
+
+  String get choice2 {
+    return _storyData[_story].choice2;
+  }
+
+  void chooseNext(int choice) {
+    if (_story == 0 && choice == 1)
+      _story = 2;
+    else if (_story == 0 && choice == 2)
+      _story = 1;
+    else if (_story == 1 && choice == 1)
+      _story = 2;
+    else if (_story == 1 && choice == 2)
+      _story = 3;
+    else if (_story == 2 && choice == 1)
+      _story = 5;
+    else if (_story == 2 && choice == 2)
+      _story = 4;
+    else if (_story > 2 && choice == 1) _story = 0;
+  }
 }
