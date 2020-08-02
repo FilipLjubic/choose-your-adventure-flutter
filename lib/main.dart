@@ -27,6 +27,9 @@ class _StoryPageState extends State<StoryPage> {
     ScreenUtil.init(context,
         width: 1080.0, height: 2300.0, allowFontScaling: true);
 
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: const BoxDecoration(
@@ -38,40 +41,82 @@ class _StoryPageState extends State<StoryPage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                flex: 10,
-                child: Center(
-                  child: BorderedTextWidget(text: _storyBrain.text, size: 70),
+          child: isPortrait
+              ? Column(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: Center(
+                        child: BorderedTextWidget(
+                            text: _storyBrain.text, size: 70),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: AnimatedButton(
+                          width: 900.w,
+                          color: Colors.blueGrey,
+                          child: BorderedTextWidget(
+                              text: _storyBrain.choice1, size: 45),
+                          onPressed: () =>
+                              setState(() => _storyBrain.chooseNext(1)),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: AnimatedButton(
+                          width: 900.w,
+                          color: Colors.grey,
+                          child: BorderedTextWidget(
+                              text: _storyBrain.choice2, size: 45),
+                          onPressed: () =>
+                              setState(() => _storyBrain.chooseNext(2)),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : ListView(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: Center(
+                        child: BorderedTextWidget(
+                            text: _storyBrain.text, size: 70),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: AnimatedButton(
+                          width: 900.w,
+                          color: Colors.blueGrey,
+                          child: BorderedTextWidget(
+                              text: _storyBrain.choice1, size: 45),
+                          onPressed: () =>
+                              setState(() => _storyBrain.chooseNext(1)),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 100.h),
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: AnimatedButton(
+                          width: 900.w,
+                          color: Colors.grey,
+                          child: BorderedTextWidget(
+                              text: _storyBrain.choice2, size: 45),
+                          onPressed: () =>
+                              setState(() => _storyBrain.chooseNext(2)),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: AnimatedButton(
-                    width: 900.w,
-                    color: Colors.blueGrey,
-                    child:
-                        BorderedTextWidget(text: _storyBrain.choice1, size: 45),
-                    onPressed: () => setState(() => _storyBrain.chooseNext(1)),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: AnimatedButton(
-                    width: 900.w,
-                    color: Colors.grey,
-                    child:
-                        BorderedTextWidget(text: _storyBrain.choice2, size: 45),
-                    onPressed: () => setState(() => _storyBrain.chooseNext(2)),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
